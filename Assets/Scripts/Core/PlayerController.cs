@@ -1,27 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class Mover : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private Transform target;
 
-    
     void Update()
     {
-        if(Input.GetMouseButtonDown(1)){
+        if (Input.GetMouseButton(1))
+        {
             MoveToCursor();
         }
-        
     }
 
-    private void MoveToCursor(){
+    private void MoveToCursor()
+    {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         bool hasHit = Physics.Raycast(ray, out hit);
-        if(hasHit){
-            this.GetComponent<NavMeshAgent>().destination = hit.point;
+        if (hasHit)
+        {
+            GetComponent<Mover>().MoveTo(hit.point);
+
         }
     }
 }

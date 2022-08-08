@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowCamera : MonoBehaviour
+namespace RPG.Core
 {
-    [SerializeField] private GameObject target;
-    void LateUpdate()
+    public class FollowCamera : MonoBehaviour
     {
-        this.transform.position = target.transform.position;
+        [SerializeField] private GameObject target;
+        void LateUpdate()
+        {
+            this.transform.position = target.transform.position;
+        }
     }
 }

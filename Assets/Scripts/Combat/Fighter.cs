@@ -2,26 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RPG.Movement;
+using RPG.Core;
 
 namespace RPG.Combat
 {
 
-    public class Fighter : MonoBehaviour
+    public class Fighter : MonoBehaviour, IAction
     {
         [SerializeField] private float weaponRange = 2f;
         private Transform target;
         void Update()
         {
             if(target == null) return;
+
             
             if (!GetIsInRange())
             {
-
-                GetComponent<Mover>().StartMoveAction(target.position);
+                GetComponent<Mover>().MoveTo(target.position);
             }
             else
             {
-                GetComponent<Mover>().Stop();
+                GetComponent<Mover>().Cancel();
             }
         }
 
@@ -32,6 +33,7 @@ namespace RPG.Combat
 
         public void Attack(CombatTarget combatTarget)
         {
+            GetComponent<ActionScheduler>().StartAction(this);
             target = combatTarget.transform;
             print("attacking");
         }
